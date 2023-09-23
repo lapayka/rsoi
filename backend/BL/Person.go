@@ -2,33 +2,48 @@ package BL
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
+	"io"
+	"log/slog"
 )
 
 type Person struct {
-	id        int    `json:"id"`
+	ID        int    `json:"id"`
 	FirstName string `json:"firstName"`
 	LastName  string `json:"lastName"`
 	Age       int    `json:"age"`
 }
 
-func ToJSON(p Person) bytes {
-	jsonBytes, err := json.Marshal(p)
-	if err != nil {
-		log.Fatal(err)
-		return nil
-	}
-
-	return jsonBytes
+func (Person) TableName() string {
+	return "persons"
 }
 
-func FromJSON(s bytes) Person {
-	person := Person{}
-	err := json.Unmarshal(s, &person)
+func (p *Person) ToJSON() string {
+	json, err := json.Marshal(p)
 	if err != nil {
-		log.Fatal(err)
-		return Person{}
+		slog.Warn("Unable to create json", "json error", err)
+		return "nil"
 	}
 
-	return person
+	return string(json)
+}
+
+func (p *Person) FromJSON(s string) error {
+	err := json.Unmarshal([]byte(s), p)
+
+	if err != nil {
+		slog.Warn("SHIT!", "parse error", err)
+		return fmt.Errorf("failed to parse person from json: %w", err)
+	}
+
+	return nil
+}
+
+func (p *Person) FromJSONReder(r io.Reader) error {
+	// fmt.Println(s)
+	err := json.NewDecoder(r).Decode(p)
+	if err != nil {
+		return fmt.Errorf("failed to parse person from json: %w", err)
+	}
+	return nil
 }
