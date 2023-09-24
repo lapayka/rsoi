@@ -15,7 +15,7 @@ type DB struct {
 }
 
 func New(db_name string) (*DB, error) {
-	dsn := fmt.Sprintf("host=postgres user=postgres password=1234 dbname=%s port=5432 sslmode=disable", db_name)
+	dsn := fmt.Sprintf("host=localhost user=postgres password=1234 dbname=%s port=5433 sslmode=disable", db_name)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {

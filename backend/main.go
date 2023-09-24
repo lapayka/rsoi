@@ -23,7 +23,7 @@ func CreateGateWay() (GateWay, error) {
 	gw := GateWay{}
 	gw.logger = slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	var err error
-	gw.db, err = DA.New()
+	gw.db, err = DA.New("rsoi_persons")
 
 	if err != nil {
 		return GateWay{}, err
