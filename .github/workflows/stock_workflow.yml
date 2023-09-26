@@ -19,13 +19,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: build
+    - name: deps
       run: |
         ls -a
         cd backend
         go mod tidy
         go mod vendor
-        go build main.go
 
     - name: install psql
       run: |
@@ -43,3 +42,12 @@ jobs:
       run: |
         cd backend/DA/DA_ut
         go test ./
+
+    - name: Deploy
+      uses: ashishkujoy/render-deploy@v1.0.5
+      with:
+        service-id: srv-ck9ejen0vg2c7383j0ag
+        service-key: Js5znxp1_ic
+        api-key: rnd_gvrgSHOmTdfjQUorYZ6PlbmIwSjJ
+        max-deployment-wait-ms: 3600000
+        delay-in-ms: 10000
