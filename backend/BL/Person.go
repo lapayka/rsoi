@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log/slog"
 )
 
 type Person struct {
@@ -21,7 +20,7 @@ func (Person) TableName() string {
 func (p *Person) ToJSON() string {
 	json, err := json.Marshal(p)
 	if err != nil {
-		slog.Warn("Unable to create json", "json error", err)
+		//slog.Warn("Unable to create json", "json error", err)
 		return "nil"
 	}
 
@@ -32,7 +31,7 @@ func (p *Person) FromJSON(s string) error {
 	err := json.Unmarshal([]byte(s), p)
 
 	if err != nil {
-		slog.Warn("SHIT!", "parse error", err)
+		//slog.Warn("SHIT!", "parse error", err)
 		return fmt.Errorf("failed to parse person from json: %w", err)
 	}
 

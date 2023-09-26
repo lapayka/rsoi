@@ -8,7 +8,7 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	db, _ := DA.New("rsoi_persons_test")
+	db, _ := DA.New("postgres", "postgres", "rsoi_persons_test", "1234")
 
 	p := BL.Person{FirstName: "Denis", LastName: "Ivanov", Age: 25}
 	err := db.CreatePerson(&p)
@@ -23,7 +23,7 @@ func TestCreate(t *testing.T) {
 }
 
 func TestGetById(t *testing.T) {
-	db, _ := DA.New("rsoi_persons_test")
+	db, _ := DA.New("postgres", "postgres", "rsoi_persons_test", "1234")
 
 	p, err := db.GetPersonById(1)
 
@@ -37,7 +37,7 @@ func TestGetById(t *testing.T) {
 }
 
 func TestGetAll(t *testing.T) {
-	db, _ := DA.New("rsoi_persons_test")
+	db, _ := DA.New("postgres", "postgres", "rsoi_persons_test", "1234")
 
 	p, err := db.GetPersons()
 
@@ -51,7 +51,7 @@ func TestGetAll(t *testing.T) {
 }
 
 func TestUpdatePerson(t *testing.T) {
-	db, _ := DA.New("rsoi_persons_test")
+	db, _ := DA.New("postgres", "postgres", "rsoi_persons_test", "1234")
 
 	p := BL.Person{FirstName: "abc", LastName: "acd"}
 	err := db.UpdatePerson(1, p)
@@ -62,7 +62,7 @@ func TestUpdatePerson(t *testing.T) {
 }
 
 func TestDeletePerson(t *testing.T) {
-	db, _ := DA.New("rsoi_persons_test")
+	db, _ := DA.New("postgres", "postgres", "rsoi_persons_test", "1234")
 
 	err := db.DeletePerson(1)
 

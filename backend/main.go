@@ -3,9 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
-	"log/slog"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -15,15 +13,15 @@ import (
 )
 
 type GateWay struct {
-	db     *DA.DB
-	logger *slog.Logger
+	db *DA.DB
+	//logger *slog.Logger
 }
 
 func CreateGateWay() (GateWay, error) {
 	gw := GateWay{}
-	gw.logger = slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	//gw.logger = slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	var err error
-	gw.db, err = DA.New("rsoi_persons")
+	gw.db, err = DA.New("dpg-ck9etn9ehpqs73csegag-a.oregon-postgres.render.com", "lapayka", "rsoi_persons", "201XgB466wUKfdYFKpNzgEv0m8tJOR2C")
 
 	if err != nil {
 		return GateWay{}, err
@@ -45,7 +43,7 @@ func main() {
 
 	err := http.ListenAndServe(":8000", router)
 	if err != nil {
-		gw.logger.Error("failed to run app", "error", err)
+		//gw.logger.Error("failed to run app", "error", err)
 	}
 }
 
@@ -114,7 +112,7 @@ func readSerializable(r *http.Request, item BL.Serializable) {
 	err := item.FromJSON(string(buff))
 
 	if err != nil {
-		slog.Warn("Wrong http request", "parse error", err)
+		//slog.Warn("Wrong http request", "parse error", err)
 	}
 }
 
