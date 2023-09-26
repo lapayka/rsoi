@@ -56,6 +56,9 @@ func TestUpdatePerson(t *testing.T) {
 	p := BL.Person{FirstName: "abc", LastName: "acd"}
 	err := db.UpdatePerson(1, p)
 
+	p1 := BL.Person{}
+	p1.ToJSON()
+
 	if err != nil {
 		t.Errorf("Error when call func %s", err)
 	}
